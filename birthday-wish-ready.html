@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="sw">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Birthday Wish for Raysuh</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <a class="big" id="openLink" href="?wish=1&name=Raysuh">Fungua Birthday Wish</a>
+  </div>
+
+  <script>
+    function q(name){const u=new URL(location.href); return u.searchParams.get(name)}
+    const isWish = q('wish')
+    if(isWish){
+      const nm = q('name') ? decodeURIComponent(q('name')) : 'Mpendwa'
+      document.body.innerHTML = `
+        <div class="wish-container">
+          <div class="wish-card">
+            <h2>Heri ya Siku ya Kuzaliwa 🎉</h2>
+            <h1>${nm}</h1>
+            <img src="raysuh/raysuh1.jpg" alt="raysuh image" class="wish-image" />
+            <img src="raysuh/raysuh2.jpg" alt="raysuh image" class="wish-image" />
+            <p class="wish-message">
+              Nakutakia siku ya kuzaliwa yenye furaha na mafanikio mengi. Naamimi mwaka huu mpya utaangaza ndoto na malengo yako, 
+              na kwa hakika uwezo wake Allah (S.W) utafanikisha kila hitaji lako inshaAllah. Najikuta nina amani sana tangu nimejuana nawewe, 
+              kiasi kwamba inanipelekea nione kama nimekutana na mwanamke perfect kwa ajili ya maisha yangu. 
+              Thank you for coming — I hope kuna mengi mazuri yanaenda kutokea kati yetu, ${nm}!
+            </p>
+            <p>Happy Birthday once again! 🎂🎈 Beautiful</p>
+            <h3 class="wish-from">-- It's me #Faddy</h3>
+          </div>
+        </div>
+      `;
+
+      // Simple confetti effect
+      (function(){
+        const c = document.createElement('canvas');
+        c.classList.add('confetti');
+        document.body.appendChild(c);
+        const ctx = c.getContext('2d');
+        function resize(){c.width=innerWidth;c.height=innerHeight}
+        addEventListener('resize',resize); resize();
+        let pieces=[];
+        function rand(a,b){return Math.random()*(b-a)+a}
+        for(let i=0;i<120;i++){
+          pieces.push({x:rand(0,c.width),y:rand(-200,c.height),
+                       vx:rand(-2,2),vy:rand(2,6),s:rand(6,12),
+                       rot:rand(0,6),rs:rand(-0.1,0.1),
+                       col:`hsl(${Math.floor(rand(0,360))},70%,60%)`})
+        }
+        let t=setInterval(()=>{
+          ctx.clearRect(0,0,c.width,c.height);
+          for(let p of pieces){
+            p.x+=p.vx; p.y+=p.vy; p.vy+=0.03; p.rot+=p.rs;
+            ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+            ctx.fillStyle=p.col; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6);
+            ctx.restore();
+          }
+        },16);
+        setTimeout(()=>{clearInterval(t); ctx.clearRect(0,0,c.width,c.height)},7000)
+      })();
+    }
+  </script>
+</body>
+</html>
